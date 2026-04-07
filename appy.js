@@ -1,7 +1,10 @@
 //Ejercicio 1: Punto A
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));      //uso fetch para peticiones asincronicas a servidores y obtener datos, archivos etc E importo la libreria node-fetch para usarla en el entorno de Node.js, ya que fetch es nativo en navegadores pero no en Node.js 
-const fs = require('fs/promises');
-const path = require('path');
+import fetch from 'node-fetch';
+import { writeFile, readFile } from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const URL = "https://thronesapi.com/api/v2/Characters";        //para sincronizar y guardar la URL de la API en una constante
 
@@ -14,7 +17,7 @@ async function obtenerPersonajes() {     //defino la funcion para obtener los pe
 
         // Ejercicio 1: Punto D: guardar en disco lo que devolvio la primera consulta (lista de personajes)
         const archivo = path.join(__dirname, 'personajes.json');
-        await fs.writeFile(archivo, JSON.stringify(data, null, 2), 'utf8');
+        await writeFile(archivo, JSON.stringify(data, null, 2), 'utf8');
         console.log('Datos guardados en:', archivo);
 
     } catch (error) {         //por si hay un error
@@ -36,9 +39,12 @@ async function obtenerPersonajePorId(id) {
         console.error('Error:', error);
     }
 }
+console.log('EJECUTAMOS obtenerPersonajes()');
+await obtenerPersonajes();
 
-//obtenerPersonajes();
-//obtenerPersonajePorId(1);   // ejemplo: buscar el personaje con id 1 (cambiar el numero si queres otro)
+console.log('----------------------------------');
+console.log('EJECUTAMOS obtenerPersonajePorId(1)');
+await obtenerPersonajePorId(1);   // ejemplo: buscar el personaje con id 1 (cambiar el numero si queres otro)
 
 
 
@@ -68,15 +74,16 @@ async function agregarPersonaje() {
         console.error("Error:", error);
     }
 }
-
-//agregarPersonaje();
+console.log('----------------------------------');
+console.log('EJECUTAMOS agregarPersonaje()');
+await agregarPersonaje();
 
 
 //Ejercicio 2: Punto A
 async function agregarPersonajeAlFinal(){
     try {
         const archivo = path.join(__dirname, 'personajes.json'); //se define la ruta del archivo
-        const data = await fs.readFile(archivo, 'utf8'); //se lee el contenido del archivo personajes.json
+        const data = await readFile(archivo, 'utf8'); //se lee el contenido del archivo personajes.json
 
         const personajes = JSON.parse(data);
 
@@ -92,7 +99,7 @@ async function agregarPersonajeAlFinal(){
 
         personajes.push(nuevoPersonaje); //se agrega el nuevo objeto al final de la lista
 
-        await fs.writeFile(archivo, JSON.stringify(personajes, null, 2), 'utf8'); //se guardan los cambios actualizando el archivo físico
+        await writeFile(archivo, JSON.stringify(personajes, null, 2), 'utf8'); //se guardan los cambios actualizando el archivo físico
         console.log('Nuevo personaje agregado al final del archivo:', nuevoPersonaje);
 
     } catch (error) {
@@ -100,7 +107,9 @@ async function agregarPersonajeAlFinal(){
     }
 }
 
-//agregarPersonajeAlFinal();
+console.log('----------------------------------');
+console.log('EJECUTAMOS agregarPersonajeAlFinal()');
+await agregarPersonajeAlFinal();
 
 //Ejercicio 2-B
 async function agregarPersonajesAlInicio() {
@@ -108,7 +117,7 @@ async function agregarPersonajesAlInicio() {
         const archivo = path.join(__dirname, 'personajes.json');
 
         // Se lee el archivo
-        const data = await fs.readFile(archivo, 'utf8');
+        const data = await readFile(archivo, 'utf8');
         const personajes = JSON.parse(data);
 
         const ultimoId = personajes[personajes.length - 1].id; // Para obtener el ultimo id
@@ -138,7 +147,7 @@ async function agregarPersonajesAlInicio() {
         personajes.unshift(personaje1, personaje2);
 
         // Se guardan en el archivo los 2 personajes
-        await fs.writeFile(archivo, JSON.stringify(personajes, null, 2), 'utf8');
+        await writeFile(archivo, JSON.stringify(personajes, null, 2), 'utf8');
 
         console.log("Se agregaron correctamente 2 personajes al inicio!");
 
@@ -146,5 +155,7 @@ async function agregarPersonajesAlInicio() {
         console.error("Error al agregar personajes al inicio(ITEM 2B):", error);
     }
 }
+console.log('----------------------------------');
+console.log('EJECUTAMOS agregarPersonajesAlInicio()');
 
-agregarPersonajesAlInicio();
+await agregarPersonajesAlInicio();

@@ -1,5 +1,23 @@
 [
   {
+    "id": 54,
+    "firstName": "Bobb",
+    "lastName": "Estetoiscop",
+    "fullName": "Bobb Estetoiscop",
+    "title": "Madre de los mares",
+    "family": "House Heavenyny",
+    "imageUrl": ""
+  },
+  {
+    "id": 55,
+    "firstName": "Agamenon",
+    "lastName": "Trukk",
+    "fullName": "Agamenon Trukk",
+    "title": "Padre de los 7 cielos",
+    "family": "House Helloyte",
+    "imageUrl": ""
+  },
+  {
     "id": 0,
     "firstName": "Daenerys",
     "lastName": "Targaryen",
