@@ -528,5 +528,14 @@
     "family": "Bronn",
     "image": "bronn.jpg",
     "imageUrl": "https://thronesapi.com/assets/images/bronn.jpg"
+  },
+  {
+    "id": 54,
+    "firstName": "Aegon",
+    "lastName": "Targaryen",
+    "fullName": "Aegon Targaryen",
+    "title": "Rey de los Siete Reinos",
+    "family": "Targaryen",
+    "imageUrl": ""
   }
 ]

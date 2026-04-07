@@ -37,8 +37,8 @@ async function obtenerPersonajePorId(id) {
     }
 }
 
-obtenerPersonajes();
-obtenerPersonajePorId(1);   // ejemplo: buscar el personaje con id 1 (cambiar el numero si queres otro)
+//obtenerPersonajes();
+//obtenerPersonajePorId(1);   // ejemplo: buscar el personaje con id 1 (cambiar el numero si queres otro)
 
 
 
@@ -69,5 +69,35 @@ async function agregarPersonaje() {
     }
 }
 
-agregarPersonaje();
+//agregarPersonaje();
 
+
+//Ejercicio 2: Punto A
+async function agregarPersonajeAlFinal(){
+    try {
+        const archivo = path.join(__dirname, 'personajes.json'); //se define la ruta del archivo
+        const data = await fs.readFile(archivo, 'utf8'); //se lee el contenido del archivo personajes.json
+
+        const personajes = JSON.parse(data);
+
+        const nuevoPersonaje = {
+            id: personajes.length + 1,
+            firstName: "Aegon",
+            lastName: "Targaryen",
+            fullName: "Aegon Targaryen",
+            title: "Rey de los Siete Reinos",
+            family: "Targaryen",
+            imageUrl: ""
+        };
+
+        personajes.push(nuevoPersonaje); //se agrega el nuevo objeto al final de la lista
+
+        await fs.writeFile(archivo, JSON.stringify(personajes, null, 2), 'utf8'); //se guardan los cambios actualizando el archivo físico
+        console.log('Nuevo personaje agregado al final del archivo:', nuevoPersonaje);
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+//agregarPersonajeAlFinal();
