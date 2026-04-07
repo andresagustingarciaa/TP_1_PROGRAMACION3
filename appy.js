@@ -101,3 +101,50 @@ async function agregarPersonajeAlFinal(){
 }
 
 //agregarPersonajeAlFinal();
+
+//Ejercicio 2-B
+async function agregarPersonajesAlInicio() {
+    try {
+        const archivo = path.join(__dirname, 'personajes.json');
+
+        // Se lee el archivo
+        const data = await fs.readFile(archivo, 'utf8');
+        const personajes = JSON.parse(data);
+
+        const ultimoId = personajes[personajes.length - 1].id; // Para obtener el ultimo id
+
+        // Los 2 personajes nuevos
+        const personaje1 = {
+            id: ultimoId + 1,
+            firstName: "Bobb",
+            lastName: "Estetoiscop",
+            fullName: "Bobb Estetoiscop",
+            title: "Madre de los mares",
+            family: "House Heavenyny",
+            imageUrl: ""
+        };
+
+        const personaje2 = {
+            id: ultimoId + 2,
+            firstName: "Agamenon",
+            lastName: "Trukk",
+            fullName: "Agamenon Trukk",
+            title: "Padre de los 7 cielos",
+            family: "House Helloyte",
+            imageUrl: ""
+        };
+
+        // Se agregan los 2 personajes al inicio
+        personajes.unshift(personaje1, personaje2);
+
+        // Se guardan en el archivo los 2 personajes
+        await fs.writeFile(archivo, JSON.stringify(personajes, null, 2), 'utf8');
+
+        console.log("Se agregaron correctamente 2 personajes al inicio!");
+
+    } catch (error) {
+        console.error("Error al agregar personajes al inicio(ITEM 2B):", error);
+    }
+}
+
+agregarPersonajesAlInicio();
