@@ -81,7 +81,7 @@ async function agregarPersonajeAlFinal(){
         const personajes = JSON.parse(data);
 
         const nuevoPersonaje = {
-            id: personajes.length + 1,
+            id: personajes.length,
             firstName: "Aegon",
             lastName: "Targaryen",
             fullName: "Aegon Targaryen",
