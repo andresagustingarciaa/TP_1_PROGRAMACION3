@@ -24,7 +24,7 @@ async function obtenerPersonajes() {     //defino la funcion para obtener los pe
         console.error("Error:", error);     //imprime el eror en consola
     }
 }
-
+//Punto C y D hecho por Valentin Suarez pero lo tuve que enviar por WhatsApp ya que no teniamos ni el repo y yo no tenia la compu para pushearlo 
 //Ejercicio 1: Punto C — GET de un personaje por id (el id va en la URL)
 async function obtenerPersonajePorId(id) {
     try {
