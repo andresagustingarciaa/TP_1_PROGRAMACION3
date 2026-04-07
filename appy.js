@@ -1,5 +1,7 @@
 //Ejercicio 1: Punto A
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));      //uso fetch para peticiones asincronicas a servidores y obtener datos, archivos etc E importo la libreria node-fetch para usarla en el entorno de Node.js, ya que fetch es nativo en navegadores pero no en Node.js 
+const fs = require('fs/promises');
+const path = require('path');
 
 const URL = "https://thronesapi.com/api/v2/Characters";        //para sincronizar y guardar la URL de la API en una constante
 
@@ -10,12 +12,33 @@ async function obtenerPersonajes() {     //defino la funcion para obtener los pe
 
         console.log(data);
 
+        // Ejercicio 1: Punto D: guardar en disco lo que devolvio la primera consulta (lista de personajes)
+        const archivo = path.join(__dirname, 'personajes.json');
+        await fs.writeFile(archivo, JSON.stringify(data, null, 2), 'utf8');
+        console.log('Datos guardados en:', archivo);
+
     } catch (error) {         //por si hay un error
         console.error("Error:", error);     //imprime el eror en consola
     }
 }
 
+//Ejercicio 1: Punto C — GET de un personaje por id (el id va en la URL)
+async function obtenerPersonajePorId(id) {
+    try {
+        const res = await fetch(`${URL}/${id}`);
+        if (!res.ok) {
+            console.error('Respuesta no OK. Status:', res.status);
+            return;
+        }
+        const data = await res.json();
+        console.log('Personaje id', id, ':', data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 obtenerPersonajes();
+obtenerPersonajePorId(1);   // ejemplo: buscar el personaje con id 1 (cambiar el numero si queres otro)
 
 
 
